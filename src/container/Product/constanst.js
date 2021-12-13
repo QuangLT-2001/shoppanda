@@ -1,2 +1,0 @@
-export const HANDLE_INIT_PRODUCT = "HANDLE_INIT_PRODUCT";
- 

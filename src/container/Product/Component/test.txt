@@ -1,1 +1,0 @@
-<IconCard className="icon-card" name="0" />
