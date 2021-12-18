@@ -1,4 +1,4 @@
-import styled, {keyframes} from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 const animationScale = keyframes`
   0% {
     transform: scale(0.7);

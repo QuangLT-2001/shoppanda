@@ -9,3 +9,12 @@ export const getListProductIdApi = productId => {
 export const createProductApi = product => {
   return axios.post(`${BASE_URL}/Products`, product);
 }
+export const getListPostApi = () => {
+  return axios.get(`${BASE_URL}/News`);
+}
+export const getPostIdApi = postId => {
+  return axios.get(`${BarProp}/News/${postId}`);
+}
+export const createPostApi = post => {
+  return axios.post(`${BASE_URL}/News`, post);
+}

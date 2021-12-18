@@ -11,6 +11,10 @@ a {
 ul {
   padding: 0 !important;
 }
+th,td {
+  padding: .5rem;
+}
+
 .list-ralate-product::-webkit-scrollbar {
   width: 0;
 }

@@ -22,7 +22,7 @@ const Header = (props) => {
   const [headerTopBottom, setHeaderTopBottom] = useState([]);
   const [menus, setMenus] = useState([]);
   const [status, setStatus] = useState(true);
-  const [listMenuFixedBottom,setListMenuFixedBottom]  = useState([]);
+  const [listMenuFixedBottom, setListMenuFixedBottom] = useState([]);
   useEffect(() => {
     setHeaderTopBottom(headerTopBottoms);
     setMenus(listMenu);
@@ -31,6 +31,7 @@ const Header = (props) => {
   const handleChangeStatus = () => {
     setStatus((state) => !state);
   };
+  // console.log("render")
   return (
     <HeaderWrapper>
       <HeaderTopWrapper className="header-top" status={status}>
@@ -49,7 +50,7 @@ const Header = (props) => {
             />
             <div className="account-cart">
               <div className="account-container">
-                <Link to="/dang-nhap"  className="icon-link">
+                <Link to="/dang-nhap" className="icon-link">
                   <FontAwesomeIcon icon={faUser} />
                 </Link>
                 <NavLink to="/dang-nhap" exact className="account-link">
@@ -98,11 +99,11 @@ const Header = (props) => {
           </div>
         </div>
       </HeaderBottomWrapper>
-      <MenuFixedBottomWrapper>
+      {/* <MenuFixedBottomWrapper>
         {listMenuFixedBottom.map(item => {
-            return <MenuItem menuItem={item} type="mobile" key={item.id} />
+          return <MenuItem menuItem={item} type="mobile" key={item.id} />
         })}
-      </MenuFixedBottomWrapper>
+      </MenuFixedBottomWrapper> */}
     </HeaderWrapper>
   );
 };

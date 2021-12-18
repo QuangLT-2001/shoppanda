@@ -211,7 +211,7 @@ export const HeaderTopWrapper = styled.div`
         }
         .phone {
           color: #fff;
-          padding: 0.05rem 0.15rem;
+          padding: 0.05rem 0.55rem;
           border-radius: 8rem;
           background: rgb(171 171 171 / 50%);
         }

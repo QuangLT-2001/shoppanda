@@ -230,11 +230,13 @@ export const BodyRightWrapper = styled.div`
   }
   .title-body {
     width: 100%;
-    padding: 0.65rem 0.25rem;
+    padding: 0.65rem 1rem;
     text-transform: uppercase;
     color: #ee4d2d;
     position: relative;
     font-size: 1.2rem;
+    transition: .3s;
+
     &:after {
       content: "";
       width: 100%;
@@ -330,10 +332,14 @@ export const ShoppingUnitItems = styled.li`
   }
   & > img {
     width: 100%;
+    min-height: 75px;
   }
 `;
 export const SellingProduct = styled.div`
   border: 1px solid #cacaca;
+  @media (max-width: 992px) {
+    display: none;
+  }
   & > .title {
     padding: 0.85rem 0;
     text-transform: uppercase;
@@ -342,6 +348,10 @@ export const SellingProduct = styled.div`
     background: #ee4d2d;
     color: #fff;
     position: relative;
+    transition: .3s;
+    @media (max-width: 1200px) {
+      font-size: 1.2rem;
+    }
     &:after {
       width: 100%;
       height: 5px;
@@ -404,6 +414,10 @@ export const ProductTabWrapper = styled.div`
     align-items: center;
     position: relative;
     margin: 0.25rem 0 1rem;
+    @media (max-width: 398px) {
+      flex-direction: column;
+      padding: 1rem 0;
+    }
     &:after {
       content: "";
       width: 100%;
@@ -483,6 +497,7 @@ export const ProductTabWrapper = styled.div`
       display: none;
       @media (max-width: 992px) {
         display: flex;
+        width: auto;
       }
     }
   }
@@ -641,7 +656,7 @@ export const CareWrapper = styled.div`
       color: #ee4d2d;
       margin: 1rem 0.25rem;
       position: relative;
-      padding: 1rem 0.25rem;
+      padding: 1rem;
       &:before {
         content: "\f18c";
         font-family: Fontawesome;
@@ -668,7 +683,7 @@ export const PostWrapper = styled.div`
       color: #ee4d2d;
       margin: 1rem 0.25rem;
       position: relative;
-      padding: 1rem 0.25rem;
+      padding: 1rem;
       &:before {
         content: "\f18c";
         font-family: Fontawesome;

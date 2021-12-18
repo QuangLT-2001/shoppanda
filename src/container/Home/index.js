@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { HomeWrapper, BannerWrapper, ListProductWrapper, TabItems, CarouselProductWrapper, BannerDiscountWrapper, BodyLeftWrapper, BodyRightWrapper, ShoppingUnitItems, SellingProduct, HotlineWrapper, ProductTabWrapper, PolicyWrapper, CareWrapper, PostWrapper, BannerIntroMobileWrapper } from './style';
+import {
+    HomeWrapper, BannerWrapper,
+    TabItems, BodyLeftWrapper, BodyRightWrapper, ShoppingUnitItems, SellingProduct, HotlineWrapper, ProductTabWrapper, PolicyWrapper, CareWrapper, PostWrapper, BannerIntroMobileWrapper
+} from './style';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { SliderItem, ListInnerProduct, ProductTabs, ShippingUnits, Polices, News } from './data';
+import {
+    SliderItem,
+    ShippingUnits,
+    Polices,
+    News
+} from './data';
 import BannerItem from './Component/BannerSlider';
 import InnerItem from './Component/InnerItem';
 import { NavLink } from 'react-router-dom';
@@ -14,7 +22,7 @@ import _filter from 'lodash/filter';
 import _intersection from 'lodash/intersection'
 import './style.css';
 import { connect } from 'react-redux';
-import { getListProduct } from './actions';
+import { getListProduct, getListPostRequest } from './actions';
 import Title from './Component/Title';
 import Buttons from '../../Component/Button';
 import TitlePage from '../../Component/Title';
@@ -27,8 +35,16 @@ import SelectOption from '../../Component/SelectOption';
 import {
     selectListProduct,
     selectIsLoading,
+    selectPosts
 } from './selectors';
 import Loading from '../Components/Loading';
+import {
+    productTab,
+    sliderProduct,
+    SellingSlider,
+    careTab,
+    settings
+} from './../../utils'
 const TabItem = props => {
     const { ind, item, onClick, classActive, status, history } = props;
 
@@ -53,7 +69,8 @@ const Home = props => {
         products,
         history,
         handleGetListProduct,
-
+        handleGetListPost,
+        posts
     } = props
     // lấy data trong productReducer (trong store)
     const [state, setState] = useState({
@@ -66,9 +83,11 @@ const Home = props => {
     const [product, setProduct] = useState([]);
     // xử lý loading
     // get data
+
+
     useEffect(() => {
         handleGetListProduct();
-
+        handleGetListPost();
         // setIsLoading(true);
         // setTimeout(() => { setIsLoading(false) }, 3000)
         setState({
@@ -86,18 +105,6 @@ const Home = props => {
 
     }, []);
     // xử lý carousel
-    const settings = {
-        dots: true,
-        fade: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        speed: 500,
-        autoplaySpeed: 2000,
-        cssEase: "linear"
-    }
     // const listTabMenu = ['sản phẩm mới', 'sản phẩm bán chạy', 'sản phẩm phổ biến']
     const listTabMenu = [
         {
@@ -116,156 +123,7 @@ const Home = props => {
 
     // xử lý tabs carousel
 
-    const productTab = {
-        infinite: true,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        autoplay: true,
-        speed: 1000,
-        autoplaySpeed: 2000,
-        cssEase: "linear",
-        responsive: [
-            {
-                breakpoint: 1200,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                }
-            },
-            {
-                breakpoint: 992,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                }
-            },
-            {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                }
-            },
-            {
-                breakpoint: 470,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                }
-            },
-        ]
-    }
-    const sliderProduct = {
-        infinite: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        speed: 1000,
-        autoplaySpeed: 2000,
-        cssEase: "linear",
-        responsive: [
-            {
-                breakpoint: 1200,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                }
-            },
-            {
-                breakpoint: 992,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                }
-            },
-            {
-                breakpoint: 776,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                }
-            },
-            {
-                breakpoint: 430,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                }
-            },
-        ]
-    }
 
-    const SellingSlider = {
-        infinite: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        speed: 1000,
-        autoplaySpeed: 2000,
-        cssEase: "linear",
-        responsive: [
-            {
-                breakpoint: 1200,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                }
-            },
-            {
-                breakpoint: 992,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                }
-            },
-            {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                }
-            },
-        ]
-    }
-    const careTab = {
-        infinite: true,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        autoplay: true,
-        speed: 1000,
-        autoplaySpeed: 2000,
-        cssEase: "linear",
-        responsive: [
-            {
-                breakpoint: 1200,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                }
-            },
-            {
-                breakpoint: 992,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                }
-            },
-            {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                }
-            },
-            {
-                breakpoint: 470,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                }
-            },
-        ]
-    }
     // xử lý tabs products
     // nút chọn các mặt hàng ở phần tabs
     const [filterTabs, setFilterTabs] = useState([]);
@@ -300,12 +158,6 @@ const Home = props => {
     }
     // trạng thái active của menu tabs
     const data = filterTabs.length ? filterProduct() : newData;
-    const accessory = _filter(products, item => item.tabs === 'accessory');
-    // xu ly nut button cho phu kien
-    const handleToAccessory = () => {
-        const { history } = props;
-        history.push("/phụ kiện khác")
-    }
 
     // đường đến prodcut
     const handleClickToProd = () => {
@@ -335,6 +187,10 @@ const Home = props => {
     // link tới trang giới thiệu
     const handleClickToIntro = () => {
         history.push("/gioi-thieu")
+    }
+    // link toi post detail
+    const handleClickToPostDetail = postId => {
+        history.push(`/tin-tuc/${postId}`);
     }
 
     // xử lý load
@@ -372,17 +228,21 @@ const Home = props => {
                             </h3>
                             <Slider {...SellingSlider}>
                                 <div>
-                                    {_.map(_.uniqBy(_.slice(sellingUnit, 0, 6), 'id'), item => {
-                                        return <SellingItem sellingItem={item} key={item.id} />
+                                    {_.map(_.uniqBy(_.slice(sellingUnit, 0, 2), 'id'), item => {
+                                        return <SellingItem
+                                            sellingItem={item}
+                                            key={item.id}
+                                            history={history}
+                                        />
                                     })}
                                 </div>
                                 <div>
-                                    {_.map(_.uniqBy(_.slice(sellingUnit, 6, 12), 'id'), item => {
+                                    {_.map(_.uniqBy(_.slice(sellingUnit, 2, 4), 'id'), item => {
                                         return <SellingItem
-                                        sellingItem={item}
-                                        key={item.id}
-                                        history={history}
-                                    />
+                                            sellingItem={item}
+                                            key={item.id}
+                                            history={history}
+                                        />
                                     })}
                                 </div>
                             </Slider>
@@ -407,11 +267,11 @@ const Home = props => {
                                 <Slider {...sliderProduct}>
                                     {_.map(_.uniqBy(_.slice(sellingUnit, 0, 8), 'id'), item => {
                                         return <ProductItem
-                                        nameButton="xem thông tin"
-                                        item={item}
-                                        key={item.id}
-                                        history={history}
-                                    />
+                                            nameButton="xem thông tin"
+                                            item={item}
+                                            key={item.id}
+                                            history={history}
+                                        />
                                     })}
                                 </Slider>
                             </div>
@@ -419,15 +279,15 @@ const Home = props => {
                                 <div className="row">
                                     {_.map(_.uniqBy(_.slice(sellingUnit, 0, 4), 'id'), item => {
                                         return <ProductItem
-                                        typeHot="hot"
-                                        slice="hot"
-                                        type="border"
-                                        className="col-xl-6 col-lg-4 col-md-4 col-sm-6 col-6"
-                                        nameButton="xem thông tin"
-                                        item={item}
-                                        key={item.id}
-                                        history={history}
-                                    />
+                                            typeHot="hot"
+                                            slice="hot"
+                                            type="border"
+                                            className="col-xl-6 col-lg-4 col-md-4 col-sm-6 col-6"
+                                            nameButton="xem thông tin"
+                                            item={item}
+                                            key={item.id}
+                                            history={history}
+                                        />
                                     })}
                                     <div className="btn-to col-lg-12">
                                         <Button onClick={handleClickToProd} name="Xem tất cả sản phẩm" />
@@ -464,13 +324,13 @@ const Home = props => {
                                     {data.length ? <Slider {...productTab}>
                                         {data.map((item, index) => {
                                             return <ProductItem
-                                            type="border"
-                                            nameButton="xem thông tin"
-                                            icon={item.discountContent}
-                                            item={item}
-                                            key={item.id}
-                                            history={history}
-                                        />
+                                                type="border"
+                                                nameButton="xem thông tin"
+                                                icon={item.discountContent}
+                                                item={item}
+                                                key={item.id}
+                                                history={history}
+                                            />
                                         })}
 
                                     </Slider> : <div className="empty">
@@ -526,12 +386,12 @@ const Home = props => {
                         <Slider {...careTab}>
                             {_.map(_.uniqBy(_.slice(sellingUnit, 0, 6), 'id'), item => {
                                 return <ProductItem
-                                type="border"
-                                nameButton="xem thông tin"
-                                item={item}
-                                key={item.id}
-                                history={history}
-                            />
+                                    type="border"
+                                    nameButton="xem thông tin"
+                                    item={item}
+                                    key={item.id}
+                                    history={history}
+                                />
                             })}
 
                         </Slider>
@@ -545,10 +405,17 @@ const Home = props => {
                         <p className="descript-post">
                             Blog tập hợp những bản tin, bài viết về kinh nghiệm mua sắm và chia sẻ các cung bậc cảm xúc hằng ngày. Tập hợp những mẹo vặt để cải thiện của sống của bạn tốt hơn, hoàn hảo hơn.
                         </p>
-                        <div className="row">
-                            {_.map(_.slice(state.news, 0, 3), item => {
-                                return <PostItem className="col-lg-4 col-md-12" postItem={item} key={item.id} />
-                            })}
+                        <div className='container-fluid'>
+                            <div className="row">
+                                {_.map(_.slice(posts, 0, 4), item => {
+                                    return <PostItem
+                                    className="col-lg-3 col-md-4 col-sm-6 col-12"
+                                    postItem={item}
+                                    key={item.id}
+                                    onClick={() => handleClickToPostDetail(item.id)}
+                                    />
+                                })}
+                            </div>
                         </div>
                         <Button name="Xem thêm bài viết" type="add" />
                     </div>
@@ -562,12 +429,13 @@ const mapStateToProps = state => {
     return {
         products: selectListProduct(state),
         isLoading: selectIsLoading(state),
+        posts: selectPosts(state)
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
         handleGetListProduct: () => dispatch(getListProduct()),
-
+        handleGetListPost: () => dispatch(getListPostRequest())
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

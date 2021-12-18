@@ -21,5 +21,8 @@ export const selectListInnerProduct = createSelector(
 export const selectProductTabs = createSelector(
   selectProductReducer,
   state => state.productTabs
-
+)
+export const selectPosts = createSelector(
+  selectProductReducer,
+  state => state.posts
 )

@@ -11,6 +11,15 @@ const setBackground = type => {
         case 'add': {
             return 'rgb(238 77 45 / 80%)';
         }
+        case "counter": {
+            return "gray";
+        }
+        case "buy": {
+            return "rgb(255 185 22 / 80%)";
+        }
+        case 'add to cart': {
+            return 'rgb(245 114 36 / 80%)';
+        }
         default:
             return 'transparent'
     }
@@ -32,6 +41,12 @@ const setColor = type => {
         case 'add': {
             return '#fff';
         }
+        case 'buy': {
+            return '#fff'
+        }
+        case 'add to cart': {
+            return '#fff'
+        }
         default:
     }
 }
@@ -51,14 +66,9 @@ const setFontSize = type => {
 }
 const setBorderRadius = type => {
     switch(type) {
-        case 'post': {
-            return '5px'
-        }
-        case 'add': {
-            return '5px';
-        }
+
         default: {
-            return 0
+            return '5px'
         }
     }
 }
@@ -93,8 +103,15 @@ const setPadding = type => {
         case 'add': {
             return '.85rem 1.35rem';
         }
+        case 'buy': {
+            return '1rem .25rem'
+        }
+        case 'add to cart': {
+            return '1rem .25rem'
+        }
+
         default:
-            return '0.25rem .85rem';
+            return '0.25rem .55rem';
     }
 }
 const setBorder = type => {
@@ -116,6 +133,12 @@ const setHoverBg = type => {
         }
         case 'more-product': {
             return '#fff';
+        }
+        case 'buy': {
+            return 'rgb(255 185 22 / 100%)'
+        }
+        case 'add to cart': {
+            return 'rgb(245 114 36 / 100%)';
         }
         default:
     }
@@ -143,10 +166,29 @@ const setMargin = type => {
         case 'add': {
             return '1rem auto';
         }
+        case 'buy': {
+            return '.25rem .55rem'
+        }
+        case 'add to cart': {
+            return '.25rem .55rem'
+        }
         default:
     }
 }
+const setWidth = type => {
+    switch(type) {
+        case 'buy' :{
+            return '50%';
+        }
+        case 'add to cart': {
+            return '50%';
+        }
+        default:
+            return 'auto'
+    }
+}
 export const ButtonWrapper = styled.button`
+    width: ${props => setWidth(props.type)};
     border: ${props => setBorder(props.type)};
     background: ${props => setBackground(props.type)};
     color: ${props => setColor(props.type)};

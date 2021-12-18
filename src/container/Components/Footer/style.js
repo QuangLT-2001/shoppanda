@@ -3,8 +3,8 @@ export const FooterWrapper = styled.div`
     background: #171717;
     padding: 2rem .15rem 0rem;
     margin-top: 3rem;
-    @media (max-width: 416px) {
-        padding-bottom: 4.8rem;
+    @media (max-width: 992px) {
+        padding-bottom: 3.4rem;
     }
     .container {
         .footer-item-left {

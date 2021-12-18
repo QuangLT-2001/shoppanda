@@ -1,6 +1,6 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch,  } from 'react-router-dom';
 import Header from './container/Components/Header';
 import Login from './container/Components/login';
 import Register from './container/Components/register';
@@ -16,7 +16,11 @@ import { faAngleUp, faPalette } from '@fortawesome/free-solid-svg-icons'
 import { ChangeColor } from './style';
 import ChangeColorItem from './Component/ChangeColor';
 import ProductAll from './container/Product/Component/All';
+import Error from './container/Components/Error';
 import Detail from './container/Detail';
+import Post from './container/ListPost';
+import PostDetail from './container/PostDetail';
+
 const App = props => {
   const [scrollToTop, setScrollToTop] = useState(false);
   const [currentColor, setCurrentColor] = useState(0);
@@ -112,14 +116,14 @@ const App = props => {
   const hideScollToTop = () => {
     setScrollToTop(window.scrollY > 100);
   }
-  useEffect(() => {
-    window.addEventListener("scroll", hideScollToTop);
-    return () => {
-      window.removeEventListener("scroll", hideScollToTop);
-    }
-    // clean component
-    // mount and unmount
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener("scroll", hideScollToTop);
+  //   return () => {
+  //     window.removeEventListener("scroll", hideScollToTop);
+  //   }
+  //   // clean component
+  //   // mount and unmount
+  // }, []);
   // scroll
   useEffect(() => {
     window.scrollTo({
@@ -142,8 +146,8 @@ const App = props => {
   return (
     <div className="app">
 
-      <Router>
-        <Header />
+       <Router>
+       <Header />
         <ChangeColor>
           <span className={`${status && 'change-setting'} icon-setting`} onClick={handleClickChangeSetting}>
             <FontAwesomeIcon icon={faPalette} />
@@ -174,10 +178,12 @@ const App = props => {
           <Route exact path="/phu-kien-khac" component={Accessory} />
           <Route exact path="/san-pham" component={ProductAll} />
           <Route exact path="/san-pham/:id" component={Detail}/>
+          <Route exact path="/tin-tuc" component={Post}/>
+          <Route exact path="/tin-tuc/:id" component={PostDetail}/>
+          <Route exact component={Error}/>
         </Switch>
         <Footer />
-
-      </Router>
+       </Router>
     </div>
   );
 }

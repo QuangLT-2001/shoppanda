@@ -31,12 +31,13 @@ const ProductItem = props => {
     }
     return (
         <ProductItems
+            discountFormat={discountFormat}
             type={type}
             typeHot={typeHot}
             discountContent={discountContent}
             discount={discount}
             className={className}
-            src="/assets/images/logo/discount-1.png" icon={icon}
+            src="/assets/images/logo/dis2.png" icon={icon}
             status={status}>
             <div className="product-item-content">
                 {discountContent && <span className="icon-discount">
@@ -55,18 +56,11 @@ const ProductItem = props => {
                     >{name}</h4>
                 </div>
                 <div className="price">
-                    <span className="discount">{discountFormat}</span>
+                    <span className="discount">đ</span>
                     <span className="price-item">{priceFormat}</span>
                 </div>
-                <div className="status-cart">
-                    <span className="status">
-                        {status === true ? 'Còn hàng' : 'Hết hàng'}
-                    </span>
-                    <span className="cart">
-                        <FontAwesomeIcon icon={faShoppingCart} />
-                    </span>
-                </div>
-                <Buttons onClick={() => handleClickToDetail(id)} name={nameButton} type="detail" className="btn-detail" />
+
+                {/* <Buttons onClick={() => handleClickToDetail(id)} name={nameButton} type="detail" className="btn-detail" /> */}
             </div>
         </ProductItems>
     );

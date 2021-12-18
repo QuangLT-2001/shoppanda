@@ -4,27 +4,55 @@ import {
   takeEvery,
   put,
   all,
-  fork
+  fork,
+  delay
 } from "redux-saga/effects";
 import {
-  getListProductDetailSuccess,
-  getListProductDetailFailed
+  getProductDetailSuccess,
+  getProductDetailFailed,
+  getListProductSuccess,
+  getListProductFailed
 } from "./action";
-import {getListProductDetailApi} from "./service";
-import {GET_LIST_PRODUCT_DETAIL_REQUEST} from './contants';
-function* getListProductDetailProcess(params) {
+import { getProductDetailApi, getListProductApi } from "./service";
+import { GET_PRODUCT_DETAIL_REQUEST, GET_LIST_PRODUCT_REQUEST } from './contants';
+function* getProductDetailProcess(params) {
   try {
-    console.log("Alooooooooooooo");
-    const respon = yield call(getListProductDetailApi);
-    console.log('respon', respon);
-  }catch (err) {
-    console.log('err123', err);
+    const { data: id, type } = params;
+    const respon = yield call(getProductDetailApi, id)
+    if (respon.status === 200 || respon.status===201) {
+      yield put(getProductDetailSuccess(respon.data));
+    } else {
+      yield put(getProductDetailFailed())
+    }
+  } catch (err) {
+
+    yield put(getProductDetailFailed(err))
   }
 }
-function* watchGetListProductDetail() {
-  yield takeLatest(GET_LIST_PRODUCT_DETAIL_REQUEST, getListProductDetailProcess)
+function* watchGetProductDetail() {
+  yield takeLatest(GET_PRODUCT_DETAIL_REQUEST, getProductDetailProcess);
+}
+
+function* getListProductProcess(params) {
+  try {
+    const respon = yield call(getListProductApi);
+    if(respon.status === 200 || respon.status=== 201) {
+      yield put(getListProductSuccess(respon.data))
+    }else {
+      yield put(getProductDetailFailed())
+    }
+  } catch (err) {
+    yield put(getProductDetailFailed())
+  }
+}
+function* watchGetListProduct() {
+  yield takeLatest(GET_LIST_PRODUCT_REQUEST, getListProductProcess);
 }
 function* watchAll() {
-  yield all([watchGetListProductDetail])
+  yield all([
+    watchGetProductDetail(),
+    watchGetListProduct()
+  ])
 }
+
 export default watchAll;

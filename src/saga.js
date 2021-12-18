@@ -1,11 +1,15 @@
 import HomeSaga from './container/Home/saga';
 import ProductSaga from './container/Product/saga';
-import DetailSaga from "./container/Detail/saga"
-import {all} from 'redux-saga/effects'
+import DetailSaga from "./container/Detail/saga";
+import PostSaga from "./container/ListPost/saga";
+import PostDetailSaga from "./container/PostDetail/saga";
+import {all} from 'redux-saga/effects';
 export  function* RootSaga() {
   yield all([
     HomeSaga(),
     ProductSaga(),
-    DetailSaga()
+    DetailSaga(),
+    PostSaga(),
+    PostDetailSaga()
   ])
 }
