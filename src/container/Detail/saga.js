@@ -11,10 +11,22 @@ import {
   getProductDetailSuccess,
   getProductDetailFailed,
   getListProductSuccess,
-  getListProductFailed
+  getListProductFailed,
+  postProductToCartSuccess,
+  postProductToCartFailed
 } from "./action";
-import { getProductDetailApi, getListProductApi } from "./service";
-import { GET_PRODUCT_DETAIL_REQUEST, GET_LIST_PRODUCT_REQUEST } from './contants';
+import {
+  getProductDetailApi,
+  getListProductApi,
+  postProductToCartApi,
+  getProductCartApi,
+  putProductCartIdApi
+} from "./service";
+import {
+  GET_PRODUCT_DETAIL_REQUEST,
+  GET_LIST_PRODUCT_REQUEST,
+  POST_PRODUCT_TO_CART_REQUEST
+} from './contants';
 function* getProductDetailProcess(params) {
   try {
     const { data: id, type } = params;
@@ -48,10 +60,27 @@ function* getListProductProcess(params) {
 function* watchGetListProduct() {
   yield takeLatest(GET_LIST_PRODUCT_REQUEST, getListProductProcess);
 }
+function* postProductToCartProcess(params) {
+  try {
+    const {data: product} = params;
+    const respon = yield call(postProductToCartApi, product);
+    if(respon.status === 200 || respon.status === 201) {
+      yield put(postProductToCartSuccess(respon.data));
+    }else {
+      yield put(postProductToCartFailed())
+    }
+  }catch (err) {
+    yield put(postProductToCartFailed())
+  }
+}
+function* watchPostProductToCart() {
+  yield takeLatest(POST_PRODUCT_TO_CART_REQUEST, postProductToCartProcess)
+}
 function* watchAll() {
   yield all([
     watchGetProductDetail(),
-    watchGetListProduct()
+    watchGetListProduct(),
+    watchPostProductToCart()
   ])
 }
 

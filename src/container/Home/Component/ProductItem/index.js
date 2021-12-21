@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React, { memo } from 'react';
 import { ProductItems } from './style';
 import Buttons from './../../../../Component/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -26,8 +26,12 @@ const ProductItem = props => {
     } = item;
     const priceFormat = formatMoney(price)
     const discountFormat = formatMoney(discount);
+    const body = document.querySelector("body")
     const handleClickToDetail = productId => {
-        history.push(`san-pham/${productId}`)
+        body.classList.remove("hidden")
+        history.push(`/san-pham/${productId}`);
+
+
     }
     return (
         <ProductItems
@@ -44,15 +48,15 @@ const ProductItem = props => {
 
                 </span>}
                 <img
-                onClick={() => handleClickToDetail(id)}
-                src={avatar}
-                alt={name}
+                    onClick={() => handleClickToDetail(id)}
+                    src={avatar}
+                    alt={name}
                 />
 
                 <div className="title-product">
                     <h4
-                    className="name-product"
-                    onClick={() => handleClickToDetail(id)}
+                        className="name-product"
+                        onClick={() => handleClickToDetail(id)}
                     >{name}</h4>
                 </div>
                 <div className="price">

@@ -13,7 +13,6 @@ import { getProductsApi } from './service'
 function* getProductsProcess(params) {
   try {
     const respon = yield call(getProductsApi);
-    console.log('ressss', respon);
     if (respon.status === 200) {
       yield put(getProductsSuccess(respon.data));
       // dispatch action to reducer

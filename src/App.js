@@ -1,7 +1,7 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Route, Switch,  } from 'react-router-dom';
-import Header from './container/Components/Header';
+import { BrowserRouter as Router, Route, Switch, HashRouter } from 'react-router-dom';
+import Header from './container/Header';
 import Login from './container/Components/login';
 import Register from './container/Components/register';
 import Home from './container/Home';
@@ -20,6 +20,9 @@ import Error from './container/Components/Error';
 import Detail from './container/Detail';
 import Post from './container/ListPost';
 import PostDetail from './container/PostDetail';
+import Cart from './container/Cart';
+import Service from './container/Components/Sevice';
+import Contact from './container/Components/Contact';
 
 const App = props => {
   const [scrollToTop, setScrollToTop] = useState(false);
@@ -146,8 +149,8 @@ const App = props => {
   return (
     <div className="app">
 
-       <Router>
-       <Header />
+      <Router basename='/'>
+        <Header />
         <ChangeColor>
           <span className={`${status && 'change-setting'} icon-setting`} onClick={handleClickChangeSetting}>
             <FontAwesomeIcon icon={faPalette} />
@@ -169,21 +172,24 @@ const App = props => {
 
         </ChangeColor>
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact  path="/" component={Home} />
           <Route exact path="/dang-nhap" component={Login} />
           <Route exact path="/dang-ky" component={Register} />
           <Route exact path="/gioi-thieu" component={Introduce} />
-          <Route exact path="/giay-dep" component={FooterWare} />
-          <Route exact path="/quan-ao" component={Clothes} />
-          <Route exact path="/phu-kien-khac" component={Accessory} />
+          <Route exact path="/san-pham/giay-dep" component={FooterWare} />
+          <Route exact path="/san-pham/quan-ao" component={Clothes} />
+          <Route exact path="/san-pham/phu-kien-khac" component={Accessory} />
           <Route exact path="/san-pham" component={ProductAll} />
-          <Route exact path="/san-pham/:id" component={Detail}/>
-          <Route exact path="/tin-tuc" component={Post}/>
-          <Route exact path="/tin-tuc/:id" component={PostDetail}/>
-          <Route exact component={Error}/>
+          <Route exact path="/san-pham/:id" component={Detail} />
+          <Route exact path="/tin-tuc" component={Post} />
+          <Route exact path="/tin-tuc/:id" component={PostDetail} />
+          <Route exact path="/gio-hang" component={Cart}/>
+          <Route exact path="/dich-vu" component={Service}/>
+          <Route exact path="/lien-he" component={Contact}/>
+          <Route exact component={Error} />
         </Switch>
         <Footer />
-       </Router>
+      </Router>
     </div>
   );
 }

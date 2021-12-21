@@ -1,8 +1,6 @@
 import React, { useEffect, useState} from "react";
 import Product from "./../../";
 import { connect } from "react-redux";
-import { handleInitProduct } from "../../actions";
-import { ProductTabs } from "../../../Home/data";
 import _ from 'lodash';
 import TitlePage from "../../../../Component/Title";
 import {getProducts} from '../../actions'

@@ -28,6 +28,13 @@ const HomeReducer = (state = initialState, action) => {
                 isLoading: state.products.length && state.posts.length ? false : true,
             }
         }
+        case GET_LIST_POST_SUCCESS: {
+            return {
+                ...state,
+                posts: action.data,
+                isLoading: state.products.length && state.posts.length ? false : true,
+            }
+        }
         case GET_LIST_PRODUCT_FAILED: {
             return state
         }
@@ -37,13 +44,7 @@ const HomeReducer = (state = initialState, action) => {
                 isLoading: true
             }
         }
-        case GET_LIST_POST_SUCCESS: {
-            return {
-                ...state,
-                posts: action.data,
-                isLoading: state.products.length && state.posts.length ? false : true,
-            }
-        }
+
         case GET_LIST_POST_FAILED: {
             return state
         }

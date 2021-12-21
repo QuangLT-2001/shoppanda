@@ -10,6 +10,7 @@ import Input from '../../../Component/input';
 import FilerByPriceItem from "./FilterPriceItem";
 import RelateProductItem from "./RelateProductItem";
 import TabItem from "./TabItem";
+import Empty from "./../Empty"
 const Name = [
     {
         id: 0,
@@ -153,7 +154,7 @@ const TabPage = props => {
         },
         {
             id: 2,
-            name: "Dày dép",
+            name: "Giày dép",
             path: "giay-dep"
         },
         {
@@ -299,12 +300,7 @@ const TabPage = props => {
 
             </NavbarWrapper>
             {data.length ? <PaginationPage history={history} product={getListProductByFilter()} /> :
-                <div className="empty">
-                    <img src="/Assets/Images/product/empty_product.svg" alt="empty" />
-                    <p className="empty-text">
-                        Không tìm thấy sản phẩm
-                    </p>
-                </div>}
+                <Empty history={history}/>}
 
 
 

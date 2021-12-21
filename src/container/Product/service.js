@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = "https://61b2b99ac8d4640017aaf4af.mockapi.io/";
+const BASE_URL = "https://61b2b99ac8d4640017aaf4af.mockapi.io/api";
 export const getProductsApi = () => {
   return axios.get(`${BASE_URL}/Products`);
 }

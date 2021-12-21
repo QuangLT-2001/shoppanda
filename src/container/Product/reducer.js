@@ -12,14 +12,12 @@ const productReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case GET_PRODUCTS_REQUEST: {
-            console.log('chưa được nhé');
             return {
                 ...state,
                 isLoading: true
             }
         }
         case GET_PRODUCTS_SUCCESS: {
-            console.log('abbb', action.data);
             return {
                 ...state,
                 products: action.data,

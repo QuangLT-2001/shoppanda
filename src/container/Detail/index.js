@@ -3,7 +3,9 @@ import {
   getProductDetailRequest,
   handleDecrement,
   handleIncrement,
-  getListProductRequest
+  getListProductRequest,
+  postProductToCartRequest,
+  handleClickCloseMessage
 } from "./action";
 import { connect } from "react-redux";
 import {
@@ -12,6 +14,8 @@ import {
   selectError,
   selectCounter,
   selectProducts,
+  selectCheck,
+  selectProductCart,
 } from "./selector";
 import Loading from "../Components/Loading";
 import {
@@ -47,6 +51,9 @@ import Empty from "../Components/Empty";
 import SellingItem from "../Home/Component/SellingItem";
 import ProductItem from './../Home/Component/ProductItem'
 import TitlePage from "../../Component/Title";
+import { useParams } from "react-router-dom";
+import MessageCart from "./MessageCart";
+
 
 const IndicatorItem = ({
   indicatorItem,
@@ -101,8 +108,16 @@ const Detail = (props) => {
     handleIncrement,
     handleDecrement,
     handleGetListProducts,
-    products
+    products,
+    handlePostProductToCart,
+    check,
+    productCart,
+    handleClickClose,
+
   } = props;
+
+  const [currentRoot, setCurrentRoot] = useState("");
+  const params = useParams();
   const [index, setIndex] = useState(0);
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(3);
@@ -111,6 +126,7 @@ const Detail = (props) => {
   const [currentSize, setCurrentSize] = useState(0)
 
   useEffect(() => {
+    setCurrentRoot(params.id);
     handleGetProductDetail(+id);
     handleGetListProducts();
     window.scrollTo({
@@ -118,11 +134,10 @@ const Detail = (props) => {
       behavior: 'smooth'
     })
 
-  }, []);
+  }, [params]);
   if (error.length) return <Empty />
   if (isLoading) return <Loading />
   // hiển thị info
-
   const {
     avatar,
     color,
@@ -138,6 +153,7 @@ const Detail = (props) => {
     questionAnswer,
     ship,
     size,
+    id: productId
   } = detail;
   const formatPrice = formatMoney(price);
   const formatDiscount = formatMoney(discount);
@@ -167,7 +183,6 @@ const Detail = (props) => {
   const selectColor = color[currentColor];
   const selectSize = size[currentSize];
 
-
   const handleClickChangeColor = index => {
     setCurrentColor(index);
   }
@@ -186,6 +201,28 @@ const Detail = (props) => {
     listProduct = [...listProduct, products[Math.floor(Math.random() * products.length)]]
   });
   const uniqProduct = _.uniq(listProduct);
+  const product = {
+    id: `${productId}`,
+    name: name,
+    quantity: counter,
+    color: selectColor,
+    size: selectSize,
+    avatar: avatar,
+    price: price,
+    brand: brand,
+    ship: ship
+
+    // phan them thong tin vao gio hang
+  }
+  const body = document.querySelector("body");
+  const handleClickAddToCart = () => {
+    body.classList.add("hidden");
+    handlePostProductToCart(product);
+  }
+  const handleClickCloseCart = () => {
+    handleClickClose();
+    body.classList.remove("hidden");
+  }
   return (
     <DetailWrapper
       disabledPrev={index}
@@ -193,6 +230,14 @@ const Detail = (props) => {
 
 
       className="detail-wrapper">
+      {check && <MessageCart
+        productCart={productCart}
+        listProduct={uniqProduct}
+        history={history}
+        handleClickCloseCart={handleClickCloseCart}
+        counter={counter}
+        id={id}
+      />}
       <TitlePage name="Thông tin sản phẩm" />
       <div className="container">
         <ProductDetailWrapper className="product-detail">
@@ -335,7 +380,9 @@ const Detail = (props) => {
               <Button
                 name="THÊM VÀO GIỎ HÀNG"
                 type="add to cart"
-                className="btn-cart" />
+                className="btn-cart"
+                onClick={handleClickAddToCart}
+              />
             </div>
           </div>
           <SelectDeliveryWrapper className="select-delivery">
@@ -462,14 +509,14 @@ const Detail = (props) => {
             <h3 className="title">
               Quảng cáo sản phẩm
             </h3>
-              {_.map(_.slice(uniqProduct, 0, 6), item => {
-                return <SellingItem
-                  history={history}
-                  sellingItem={item}
-                  key={item.id}
-                  className="adv-product-item"
-                />
-              })}
+            {_.map(_.slice(uniqProduct, 0, 6), item => {
+              return <SellingItem
+                history={history}
+                sellingItem={item}
+                key={item.id}
+                className="adv-product-item"
+              />
+            })}
           </div>
         </DescriptionProductWrapper>
 
@@ -477,18 +524,20 @@ const Detail = (props) => {
           <h3 className="title">
             Sản phẩm liên quan
           </h3>
-          <div className="row">
+          <div className="container-fluid">
+            <div className="row">
 
-            {_.map(_.slice(uniqProduct, 0, 4), item => {
-              return <ProductItem
-                className="col-lg-3 col-md-4 col-sm-6"
-                key={item.id}
-                item={item}
-                nameButton="Xem thông tin"
-                history={history}
-                type="border"
-              />
-            })}
+              {_.map(_.slice(uniqProduct, 0, 4), item => {
+                return <ProductItem
+                  className="col-lg-3 col-md-4 col-sm-6 col-6"
+                  key={item.id}
+                  item={item}
+                  nameButton="Xem thông tin"
+                  history={history}
+                  type="border"
+                />
+              })}
+            </div>
           </div>
         </ProductInvolveWrapper>
 
@@ -502,7 +551,9 @@ const mapStateToProps = state => {
     detail: selectDetail(state),
     error: selectError(state),
     counter: selectCounter(state),
-    products: selectProducts(state)
+    products: selectProducts(state),
+    check: selectCheck(state),
+    productCart: selectProductCart(state),
   }
 }
 const mapDispatchToProps = dispatch => {
@@ -510,7 +561,9 @@ const mapDispatchToProps = dispatch => {
     handleGetProductDetail: data => dispatch(getProductDetailRequest(data)),
     handleIncrement: () => dispatch(handleIncrement()),
     handleDecrement: () => dispatch(handleDecrement()),
-    handleGetListProducts: () => dispatch(getListProductRequest())
+    handleGetListProducts: () => dispatch(getListProductRequest()),
+    handlePostProductToCart: data => dispatch(postProductToCartRequest(data)),
+    handleClickClose: () => dispatch(handleClickCloseMessage())
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Detail);

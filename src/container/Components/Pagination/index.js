@@ -8,6 +8,7 @@ import {
     faAngleLeft,
     faAngleRight
 } from '@fortawesome/free-solid-svg-icons';
+import Empty from './../Empty';
 const PaginationPage = props => {
     const { product, history } = props;
     const page = _slice(product, 0,);
@@ -32,13 +33,9 @@ const PaginationPage = props => {
                         item={item} key={index}
                         className="col-lg-4 col-md-4 col-sm-6 col-6 product-item"
                         history={history}
+                        key={item.id}
                         /> :
-                        <div className="empty" key={index}>
-                            <img src="/Assets/Images/product/empty_product.svg" alt="empty" />
-                            <p className="empty-text">
-                                Không tìm thấy sản phẩm
-                            </p>
-                        </div>
+                        <Empty key={null} history={history}/>
                 })}
 
 

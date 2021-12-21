@@ -6,7 +6,7 @@ export const InputWrapper = styled.div`
     position: relative;
     overflow: hidden;
     input[type="text"],input[type="email"],input[type="password"] {
-         padding: ${props => props.icon ? ".25rem 4rem .25rem .25rem" : ".25rem 2rem .25rem .25rem"};
+         padding: ${props => props.icon ? ".55rem 4rem .55rem .25rem" : ".55rem 2rem .55rem .25rem"};
          margin: ${props => props.icon ? "0" : "0.75rem 0"};
          outline: none;
          width: 100%;
@@ -22,6 +22,12 @@ export const InputWrapper = styled.div`
     input[type="checkbox"], input[type="radio"] {
         width: auto;
         margin: 0 .2rem;
+    }
+    input[class="frm-map"] {
+        border: 1px solid #ee4d2d;
+    }
+    input[class="frm-code"] {
+        border: 1px solid #ee4d2d;
     }
     label {
         font-size: 1.2rem;

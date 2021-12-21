@@ -1,5 +1,6 @@
 import {createSelector} from 'reselect';
 const selectDetailReducer = state => state.detail;
+const selectHeaderReducer = state => state.count
 export const selectIsLoading = createSelector(
   selectDetailReducer,
   state => state.isLoading
@@ -19,4 +20,12 @@ export const selectCounter = createSelector(
 export const selectProducts = createSelector(
   selectDetailReducer,
   state => state.products
+)
+export const selectCheck = createSelector(
+  selectDetailReducer,
+  state => state.check
+)
+export const selectProductCart = createSelector(
+  selectDetailReducer,
+  state => state.productCart
 )

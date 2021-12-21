@@ -149,7 +149,7 @@ const Home = props => {
     const filterProduct = () => {
         const newList = newData.filter(item => {
             const { type } = item;
-            const news = _.intersectionBy(filterTabs, type, 'name')
+            const news = _.intersectionBy(filterTabs, type, 'name');
             const mobile = _.intersectionBy(filterTabs, type, 'id')
             const check = news.length || mobile.length ? true : false;
             return check
@@ -345,7 +345,7 @@ const Home = props => {
                                             Chào mừng quý khách đến với <span>S</span>HOPPANDA.NET.VN
                                         </p>
                                     </div>
-                                    <img src="/assets/images/logo/6.png" alt="logo" />
+                                    <img src="/assets/images/logo/logo11.png" alt="logo" />
                                 </div>
                             </ProductTabWrapper>
                         </div>

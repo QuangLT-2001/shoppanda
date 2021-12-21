@@ -3,21 +3,11 @@ import { ProductWrapper } from "./style";
 import TitlePage from "../../Component/Title";
 import _ from 'lodash';
 import TabPage from "./../Components/TabPage";
-import {
-  selectIsLoading,
-} from './../Home/selectors';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
+import { useParams } from "react-router-dom";
 
 const Product = props => {
-  const { products, titlePages, history } = props
-  // const [isLoading, setIsLoading] = useState(true);
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   setTimeout(() => { setIsLoading(false) }, 3000);
-  //   return () => {
-  //     setIsLoading(true)
-  //   }
-  // }, [])
+  const { products, titlePages, history } = props;
   useEffect(() => {
 
   }, []);
